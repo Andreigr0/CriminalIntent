@@ -111,7 +111,7 @@ public class CrimeFragment extends Fragment {
         }
     }
 
-    //
+    // fghdfg
     private void updateDate() {
         mDateButton.setText(mCrime.getDate().toString());
     }
