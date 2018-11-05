@@ -20,16 +20,16 @@ import java.util.List;
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
-    private TextView mTitleTextView;
-    private TextView mDateTextView;
-    private ImageView mSolvedImageView;
     private int mAdapterPosition;
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Crime mCrime;
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+        private ImageView mSolvedImageView;
 
-        public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.list_item_crime, parent, false));
+        public CrimeHolder(LayoutInflater inflater, ViewGroup parent, int layoutId) {
+            super(inflater.inflate(layoutId, parent, false));
             itemView.setOnClickListener(this);
             mTitleTextView = itemView.findViewById(R.id.crime_title);
             mDateTextView = itemView.findViewById(R.id.crime_date);
@@ -52,6 +52,8 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
+
+
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
         private List<Crime> mCrimes;
 
@@ -63,7 +65,10 @@ public class CrimeListFragment extends Fragment {
         @Override
         public CrimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            return new CrimeHolder(layoutInflater, parent);
+            if (viewType == R.layout.list_item_crime) {
+                return new CrimeHolder(layoutInflater, parent, R.layout.list_item_crime);
+            }
+            return new CrimeHolder(layoutInflater, parent, R.layout.list_item_serious_crime);
         }
 
         @Override
@@ -77,6 +82,14 @@ public class CrimeListFragment extends Fragment {
             return mCrimes.size();
         }
 
+        @Override
+        public int getItemViewType(int position) {
+            if (mCrimes.get(position).isRequiresPolice()) {
+                return R.layout.list_item_serious_crime;
+            } else {
+                return R.layout.list_item_crime;
+            }
+        }
     }
 
     @Nullable
@@ -103,7 +116,6 @@ public class CrimeListFragment extends Fragment {
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.notifyItemChanged(mAdapterPosition);
-//            mAdapter.notifyDataSetChanged();
         }
     }
 }

@@ -33,6 +33,7 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
+    private CheckBox mRequiresPolice;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -110,7 +111,14 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-
+        mRequiresPolice = v.findViewById(R.id.serious_crime);
+        mRequiresPolice.setChecked(mCrime.isRequiresPolice());
+        mRequiresPolice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mCrime.setRequiresPolice(isChecked);
+            }
+        });
 
         return v;
     }
