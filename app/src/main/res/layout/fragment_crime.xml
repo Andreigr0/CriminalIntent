@@ -51,5 +51,11 @@
         android:id="@+id/serious_crime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Serious crime" />
+        android:text="@string/serious_crime" />
+
+    <Button
+        android:id="@+id/delete_crime"
+        android:text="@string/delete_crime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

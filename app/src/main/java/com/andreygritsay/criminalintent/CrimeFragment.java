@@ -34,6 +34,7 @@ public class CrimeFragment extends Fragment {
     private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
     private CheckBox mRequiresPolice;
+    private Button mDeleteCrime;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -55,7 +56,7 @@ public class CrimeFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime, container, false);
 
         mTitleField = v.findViewById(R.id.crime_title);
@@ -120,8 +121,18 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+        mDeleteCrime = v.findViewById(R.id.delete_crime);
+        mDeleteCrime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CrimeLab.get(getActivity()).deleteCrime(mCrime);
+                getActivity().finish();
+            }
+        });
+
         return v;
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -142,7 +153,6 @@ public class CrimeFragment extends Fragment {
         }
     }
 
-    // fghdfg
     private void updateDate() {
         mDateButton.setText(new SimpleDateFormat("dd.MM.YYYY").format(mCrime.getDate()));
         mTimeButton.setText(new SimpleDateFormat("HH:mm").format(mCrime.getDate()));
