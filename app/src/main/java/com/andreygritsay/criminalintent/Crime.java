@@ -8,16 +8,9 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
-
-    public boolean isRequiresPolice() {
-        return mRequiresPolice;
-    }
-
-    public void setRequiresPolice(boolean requiresPolice) {
-        mRequiresPolice = requiresPolice;
-    }
-
     private boolean mRequiresPolice;
+    private String mSuspect;
+    private String mNumber;
 
     public Crime() {
         this(UUID.randomUUID());
@@ -56,5 +49,29 @@ public class Crime {
 
     public void setSolved(boolean solved) {
         mSolved = solved;
+    }
+
+    public boolean isRequiresPolice() {
+        return mRequiresPolice;
+    }
+
+    public void setRequiresPolice(boolean requiresPolice) {
+        mRequiresPolice = requiresPolice;
+    }
+
+    public String getSuspect() {
+        return mSuspect;
+    }
+
+    public void setSuspect(String suspect) {
+        mSuspect = suspect;
+    }
+
+    public void setNumber(String number) {
+        mNumber = number;
+    }
+
+    public String getNumber() {
+        return mNumber;
     }
 }

@@ -33,8 +33,6 @@ public class CrimeLab {
     private CrimeLab(Context context) {
         mContext = context.getApplicationContext();
         mDatabase = new CrimeBaseHelper(mContext).getWritableDatabase();
-
-//        mCrimes = new LinkedHashMap<>();
     }
 
     public List<Crime> getCrimes() {
@@ -55,7 +53,6 @@ public class CrimeLab {
     }
 
     public Crime getCrime(UUID id) {
-//        return mCrimes.get(id);
         CrimeCursorWrapper cursor = queryCrimes(
                 CrimeTable.Cols.UUID + " = ?",
                 new String[]{id.toString()}
@@ -75,13 +72,11 @@ public class CrimeLab {
     public void addCrime(Crime c) {
         ContentValues values = getContentValues(c);
         mDatabase.insert(CrimeTable.NAME, null, values);
-//        mCrimes.put(c.getId(), c);
     }
 
     public void deleteCrime(Crime c) {
-//        mCrimes.remove(c.getId());
-        ContentValues values = getContentValues(c);
         String uuidString = c.getId().toString();
+        ContentValues values = getContentValues(c);
         mDatabase.delete(CrimeTable.NAME, CrimeTable.Cols.UUID + " = ?", new String[] {uuidString});
     }
 
@@ -92,6 +87,8 @@ public class CrimeLab {
         values.put(CrimeTable.Cols.DATE, crime.getDate().getTime());
         values.put(CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
         values.put(CrimeTable.Cols.SEROIUS, crime.isRequiresPolice() ? 1 : 0);
+        values.put(CrimeTable.Cols.SUSPECT, crime.getSuspect());
+        values.put(CrimeTable.Cols.NUMBER, crime.getNumber());
         return values;
     }
 
