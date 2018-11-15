@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.andreygritsay.criminalintent">
+
     <uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -17,10 +21,22 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CrimePagerActivity"
+        <activity
+            android:name=".CrimePagerActivity"
             android:parentActivityName=".CrimeListActivity">
 
         </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.andreygritsay.criminalintent.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/files" />
+        </provider>
     </application>
 
 </manifest>
